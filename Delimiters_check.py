@@ -50,7 +50,7 @@ class Stack:
     # Returns the head node data
     def peek(self):
 
-        if self.isempty():
+        if self.is_empty():
             return None
 
         else:
@@ -60,7 +60,7 @@ class Stack:
     def display(self):
 
         iternode = self.top
-        if self.isempty():
+        if self.is_empty():
             print("Stack Underflow")
 
         else:
