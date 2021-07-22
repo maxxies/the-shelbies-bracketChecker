@@ -12,11 +12,11 @@ class Stack:
 
     # head is default NULL
     def __init__(self):
-        self.head = None
+        self.top = None
 
     # Checks if stack is empty
     def isempty(self):
-        if self.head == None:
+        if self.top == None:
             return True
         else:
             return False
@@ -25,13 +25,13 @@ class Stack:
     # adds to the start of the stack
     def push(self, delim):
 
-        if self.head == None:
-            self.head = Node(delim)
+        if self.top == None:
+            self.top = Node(delim)
 
         else:
             newnode = Node(delim)
-            newnode.next = self.head
-            self.head = newnode
+            newnode.next = self.top
+            self.top = newnode
 
     # Remove element that is the current head (start of the stack)
     def pop(self):
@@ -42,8 +42,8 @@ class Stack:
         else:
             # Removes the head node and makes
             # the preceeding one the new head
-            poppednode = self.head
-            self.head = self.head.next
+            poppednode = self.top
+            self.head = self.top.next
             poppednode.next = None
             return poppednode.data
 
@@ -54,12 +54,12 @@ class Stack:
             return None
 
         else:
-            return self.head.delim
+            return self.top.delim
 
     # Prints out the stack
     def display(self):
 
-        iternode = self.head
+        iternode = self.top
         if self.isempty():
             print("Stack Underflow")
 
