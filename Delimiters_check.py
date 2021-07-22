@@ -1,31 +1,75 @@
-
 #Creation of the stack class
+class Node:
+
+    # Class to create nodes of linked list
+    # constructor initializes node automatically
+    def __init__(self, delim):
+        self.delim = delim
+        self.next = None
+
+
 class Stack:
+
+    # head is default NULL
     def __init__(self):
-        #implementing the array using a array
-        self.stack = []
+        self.head = None
 
-    #Method to push to the top of the stack
-    def push(self,delim):
-        self.stack.append(delim)
-
-    #Method to pop items from  the top stack
-    def pop(self):
-        return self.stack.pop(-1)
-          
-    #Method to view the last added item in the stack
-    def peek(self):
-        return self.stack[-1]
-    
-    #Method to view the whole stack
-    def show_stack(self):
-        return self.stack  
-    
-    #Method to check if the array we are working with is empty
-    def is_empty(self):
-        if len(self.stack) == 0:
+    # Checks if stack is empty
+    def isempty(self):
+        if self.head == None:
             return True
-        else: return False  
+        else:
+            return False
+
+    # Method to add data to the stack
+    # adds to the start of the stack
+    def push(self, delim):
+
+        if self.head == None:
+            self.head = Node(delim)
+
+        else:
+            newnode = Node(delim)
+            newnode.next = self.head
+            self.head = newnode
+
+    # Remove element that is the current head (start of the stack)
+    def pop(self):
+
+        if self.isempty():
+            return None
+
+        else:
+            # Removes the head node and makes
+            # the preceeding one the new head
+            poppednode = self.head
+            self.head = self.head.next
+            poppednode.next = None
+            return poppednode.data
+
+    # Returns the head node data
+    def peek(self):
+
+        if self.isempty():
+            return None
+
+        else:
+            return self.head.delim
+
+    # Prints out the stack
+    def display(self):
+
+        iternode = self.head
+        if self.isempty():
+            print("Stack Underflow")
+
+        else:
+
+            while (iternode != None):
+                print(iternode.data, "->", end = " ")
+                iternode = iternode.next
+            return
+
 
 
 # A separate class to check for the parenthesis
