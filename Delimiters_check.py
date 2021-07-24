@@ -1,32 +1,74 @@
 
-#Creation of the stack class
+#Creation of the stack class using a linked list
+class Node:
+
+    # Class to create nodes of linked list
+    # constructor initializes node automatically
+    def __init__(self, text):
+        self.text = text
+        self.next = None
+
 class Stack:
+
+    # head is default NULL
     def __init__(self):
-        #implementing the array using a array
-        self.stack = []
+        self.top = None  #seems to be a problem here
 
-    #Method to push to the top of the stack
-    def push(self,delim):
-        self.stack.append(delim)
-
-    #Method to pop items from  the top stack
-    def pop(self):
-        return self.stack.pop(-1)
-          
-    #Method to view the last added item in the stack
-    def peek(self):
-        return self.stack[-1]
-    
-    #Method to view the whole stack
-    def show_stack(self):
-        return self.stack  
-    
-    #Method to check if the array we are working with is empty
+    # Checks if stack is empty
     def is_empty(self):
-        if len(self.stack) == 0:
+        if self.top is None:
             return True
-        else: return False  
+        else:
+            return False
 
+    # Method to add data to the stack
+    # adds to the start of the stack
+    def push(self, text):
+
+        if self.top == None:
+            self.top = Node(text)
+
+        else:
+            newnode = Node(text)
+            newnode.next = self.top
+            self.top = newnode
+
+    # Remove element that is the current head (start of the stack)
+    def pop(self):
+
+        if self.is_empty():
+            return None
+
+        else:
+            # Removes the head node and makes
+            # the preceding one the new head
+            poppednode = self.top
+            self.top = self.top.next
+            poppednode.next = None
+            return poppednode.text
+
+    # Returns the head node data
+    def peek(self):
+
+        if self.is_empty():
+            return None
+
+        else:
+            return self.top.text
+
+    # Prints out the stack
+    def show_stack(self):
+
+        iternode = self.top
+        if self.is_empty():
+            print("Stack Underflow")
+
+        else:
+
+            while (iternode != None):
+                print(iternode.data, "->", end = " ")
+                iternode = iternode.next
+            return
 
 # A separate class to check for the parenthesis
 class checker():
@@ -34,10 +76,12 @@ class checker():
         self.new_stack = Stack()
         self.is_error = False #Boolean responsible for signifying an error
         self.ever_popped = False
-        self.top = "" #stores the top item of the stack
+        self.top = self.new_stack.peek()#stores the top item of the stack
 
     #Method to check for opening brackets,push them to the stack and report errors
     def check_brackets(self,text):
+        # stores the top item of the stack
+
         #Iterating through every character in the input given
         for i in range(len(text)):
             #storing each character of the text given by the user
@@ -53,7 +97,7 @@ class checker():
                 # checking if the stack of opening delimiters is not empty
                 if not (self.new_stack.is_empty()):
                     #accessing the top item in the stack of opening delimiters
-                    self.top = self.new_stack.peek()
+                    #self.top = self.new_stack.peek()
                     self.ever_popped = True
                     #showing the condition of the stack every time an item is popped from it
                     #print(self.new_stack.show_stack())
@@ -61,18 +105,18 @@ class checker():
                     if (current == ']' and self.top != '[') or (current == '}' and self.top != '{') or (current == ')' and self.top != '('):
                         # Returns True if a mismatching delimiter is found
                         self.is_error = True
-                        print("Expected opening delimiter for " + current)
+                        print("Closing delimiter " + current + " at position " + str(i+1) + " needs an opening delimiter"   )
 
                         break #breaking out of the loop if an error is encountered
 
 
                     else:
-                        # popping from the stack when a matching opening delimiter is found for the closing delimiter,
+                        # popping from the stack when a matching opening delimiter is found for the current closing delimiter,
                         self.new_stack.pop()
                         #moving to other characters in the text
                         continue
 
-                #when the cuurent character is a closing delimiter but the stack is empty
+                #when the current character is a closing delimiter but the stack is empty
                 elif self.new_stack.is_empty():
                     #A closing delimiter without an opening leads to an error
                     self.is_error = True
@@ -84,13 +128,13 @@ class checker():
 
         #When the sentence has balanced parenthesis
         if not self.is_error and (self.new_stack.is_empty()) and self.ever_popped:
-            print("Balanced pair(s) of n parenthesis,good to go")
+            print("Balanced pair(s) of parenthesis,good to go")
             # When the sentence has no parenthesis at all
-        elif not (self.is_error) and (self.new_stack.is_empty()) and not self.ever_popped:
+        elif not self.is_error and (self.new_stack.is_empty()) and not self.ever_popped:
             print("No error found")
             #when an opening delimiter is found without a closing one
         elif not self.new_stack.is_empty() and not self.is_error:
-            print(' Expected closing delimiter for ' + self.top + ' at position ' + str(i+1))
+            print(' Expected closing delimiter for ' + str(self.top) + ' at position ' + str(i+1))
 
             
 #Main program
