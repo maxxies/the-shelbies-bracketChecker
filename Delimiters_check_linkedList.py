@@ -94,7 +94,7 @@ class checker:
                 # Pushing all opening delimiters found to a stack
                 self.new_stack.push(current)
                 # printing out the condition of the stack every time we push to it
-                print(self.new_stack.show_stack())
+                #print(self.new_stack.show_stack())
                 # checking if the current character is a closing delimiter
             elif current in [']', ')', '}', '>']:
                 # checking if the stack of opening delimiters is not empty
@@ -117,7 +117,7 @@ class checker:
                         # popping from the stack when a matching opening delimiter is found for the current closing delimiter,
                         self.new_stack.pop()
                         # showing the condition of the stack every time an item is popped from it
-                        print(self.new_stack.show_stack())
+                        #print(self.new_stack.show_stack())
                         # moving to other characters in the text
                         continue
 
@@ -140,8 +140,6 @@ class checker:
                 # when an opening delimiter is found without a closing one
         elif not self.new_stack.is_empty() and not self.is_error:
             print('Error: Expected closing delimiter for ' + str(self.new_stack.peek()) + ' at position ' + str(self.j + 1))
-# text.find(self.new_stack.peek())
-
             
 #Main program
 if __name__ == "__main__":
@@ -155,4 +153,3 @@ if __name__ == "__main__":
         #calling the method to check brackets
         checker1.check_brackets(Input_text)
         
-    #Remember to keep track of the number of left parenthesis   
