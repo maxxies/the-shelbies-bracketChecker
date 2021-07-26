@@ -12,7 +12,7 @@ class Stack:
 
     # head is default NULL
     def __init__(self):
-        self.top = None  #seems to be a problem here
+        self.top = None
 
     # Checks if stack is empty
     def is_empty(self):
@@ -75,23 +75,26 @@ class checker:
         self.new_stack = Stack()
         self.is_error = False #Returns True if an error is found and False otherwise
         self.ever_popped = False
-        #stores the top item of the stack
+        self.j = 0 # stores last position of an unclosed opening delimiter
+
 
 
 
     #Method to check for opening brackets,push them to the stack and report errors
     def check_brackets(self,text):
+
         #Iterating through every character in the input given
-        for i in range(len(text)):
+        for i in range(2,len(text)):
             #storing each character of the text given by the user
             current = text[i]
 
             #checking if the current character is an opening delimiter
             if current in ['[', '(', '{', '<']:
+                self.j = i
                 # Pushing all opening delimiters found to a stack
                 self.new_stack.push(current)
                 # printing out the condition of the stack every time we push to it
-                #print(self.new_stack.show_stack())
+                print(self.new_stack.show_stack())
                 # checking if the current character is a closing delimiter
             elif current in [']', ')', '}', '>']:
                 # checking if the stack of opening delimiters is not empty
@@ -114,7 +117,7 @@ class checker:
                         # popping from the stack when a matching opening delimiter is found for the current closing delimiter,
                         self.new_stack.pop()
                         # showing the condition of the stack every time an item is popped from it
-                        #print(self.new_stack.show_stack())
+                        print(self.new_stack.show_stack())
                         # moving to other characters in the text
                         continue
 
@@ -136,8 +139,8 @@ class checker:
             print("No error found")
                 # when an opening delimiter is found without a closing one
         elif not self.new_stack.is_empty() and not self.is_error:
-            print('Error: Expected closing delimiter for ' + str(self.new_stack.peek()) + ' at position ' + str(text.find(self.new_stack.peek()) + 1))
-
+            print('Error: Expected closing delimiter for ' + str(self.new_stack.peek()) + ' at position ' + str(self.j + 1))
+# text.find(self.new_stack.peek())
 
             
 #Main program
