@@ -115,7 +115,9 @@ class checker:
                         # popping from the stack when a matching opening delimiter is found for the current closing delimiter,
                         self.new_stack.pop()
                         # showing the condition of the stack every time an item is popped from it
+
                         # print(self.new_stack.show_stack())
+                        #print(self.new_stack.show_stack())
                         # moving to other characters in the text
                         continue
 
@@ -141,7 +143,8 @@ class checker:
             print('Error: Expected closing delimiter for ' + str(self.new_stack.peek()) + ' at position ' + str(self.j + 1))
 
 
-# Main program
+
+#Main program
 if __name__ == "__main__":
     # Taking input until an empty line is met
     while True:
@@ -150,5 +153,8 @@ if __name__ == "__main__":
             break
         # creating an instance for the checker class
         checker1 = checker()
+
         # calling the method to check brackets
         checker1.check_brackets(Input_text)
+
+        
