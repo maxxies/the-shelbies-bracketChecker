@@ -32,7 +32,7 @@ function checkBracket(e) {
     //Local variables
     let stack = [];
     //condition variable checks if there are impending errors when stack is empty
-    let condition;
+    var condition;
     var counter;
 
     //Auto closing parenthesis
@@ -56,9 +56,7 @@ function checkBracket(e) {
             //Gets character from text value
             var character = entry[counter];
             //Checks if empty spaces is repeatedly entered so All set is not printed
-            if (character == " ") {
-                condition = 1;
-            }
+
             switch (character) {
                 case '(':
                 case '[':
@@ -73,7 +71,7 @@ function checkBracket(e) {
                 case '>':
                     //sets an error if closing delimiter is entered
                     if (stack.length == 0) {
-                        var newmessage = "Error starting with a closing delimeter '" + character + "' at position " + (counter + 1).toString();
+                        var newmessage = "Error starting with a closing delimiter '" + character + "' .";
                         condition = 1;
                         updateMessage(newmessage);
                     }
@@ -86,7 +84,7 @@ function checkBracket(e) {
                                     stack.shift();
                                 }
                                 else {
-                                    var errorOne = "There is a mismatched delimeter at position " + (counter + 1).toString();
+                                    var errorOne = "Mismatched delimiter for '" + character + "' .";
                                     condition = 1;
                                     updateMessage(errorOne);
                                 }
@@ -96,7 +94,7 @@ function checkBracket(e) {
                                     stack.shift();
                                 }
                                 else {
-                                    var errorTwo = "There is a mismatched delimeter at position " + (counter + 1).toString();
+                                    var errorTwo = "Mismatched delimiter for '" + character + "' .";
                                     condition = 1;
                                     updateMessage(errorTwo);
                                 }
@@ -106,7 +104,7 @@ function checkBracket(e) {
                                     stack.shift();
                                 }
                                 else {
-                                    var errorThree = "There is a mismatched delimeter at position " + (counter + 1).toString();
+                                    var errorThree = "Mismatched delimiter for '" + character + "' .";
                                     condition = 1;
                                     updateMessage(errorThree);
                                 }
@@ -116,7 +114,7 @@ function checkBracket(e) {
                                     stack.shift();
                                 }
                                 else {
-                                    var errorFour = "There is a mismatched delimeter at position " + (counter + 1).toString();
+                                    var errorFour = "Mismatched delimiter for '" + character + "' .";
                                     condition = 1;
                                     updateMessage(errorFour);
                                 }
@@ -132,15 +130,14 @@ function checkBracket(e) {
         }
     }
     //Flags an error when stack is not empty, when there are no more text, and a shift key is pressed
-    if (stack.length != 0 && condition == 0 && e.which != 16) {
+    if (stack.length != 0 && condition != 1 && e.which != 16) {
         var topCharacter = stack[0];
-        var closing = "Hey, you are missing closing delimeter for " + topCharacter + " at position " + (counter + 1).toString();
+        var closing = "Hey, you are missing closing delimeter for '" + topCharacter + "' .";
         updateMessage(closing);
     }
     //Flags a no error when stack is empty, no more text and shift key is not pressed
     else if (stack.length == 0 && condition != 1 && counter != 0 && entry != " " && e.which != 16) {
-        console.log("All set");
-        var allSet = "All set";
+        var allSet = "Yay, all set to go.";
         updateMessage(allSet);
     }
 }
